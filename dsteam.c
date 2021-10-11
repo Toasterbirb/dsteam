@@ -560,11 +560,10 @@ insert:
 		puts((sel && !(ev->state & ShiftMask)) ? sel->text_output : text);
 
 		/* Construct the commnd */		
-		char launchcommand[128] = "steam steam://run/";
-		strcat(launchcommand, sel->text_output);
-		strcat(launchcommand, " & disown");
-		puts(launchcommand);
-		system(launchcommand);
+		char command[128];
+		sprintf(command, "steam://run/%s", sel->text_output);
+		execl("/usr/bin/steam", "NULL", command, "NULL");
+		puts(command);
 
 		if (!(ev->state & ControlMask)) {
 			cleanup();
