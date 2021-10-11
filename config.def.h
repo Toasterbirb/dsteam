@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 /* Default settings; can be overriden by command line. */
 
-static int topbar 			= 1;                      /* -b  option; if 0, dmenu appears at bottom     */
+static int topbar 			= 1;                      /* -b  option; if 0, dsteam appears at bottom     */
 static int fuzzy 			= 1;
 static int caseinsensitive 	= 1;
 
@@ -16,7 +16,7 @@ static const char *colors[SchemeLast][2] = {
 	[SchemeSel] = { "#eeeeee", "#005577" },
 	[SchemeOut] = { "#000000", "#00ffff" },
 };
-/* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+/* -l option; if nonzero, dsteam uses vertical list with given number of lines */
 static unsigned int lines      = 10;
 
 /*
