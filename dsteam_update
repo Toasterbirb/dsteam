@@ -9,12 +9,17 @@ mkdir -p $HOME/.config/dsteam
 echo "Scanning app manifests..."
 for i in $manifestFiles
 do
-	echo $i
-	appID=$(awk '/appid/ {print $2}' $i)
-	name=$(awk -F'\t' '/name/ {print $4}' $i)
+	appID=$(awk '/appid/ { gsub("\"", ""); print $2}' $i)
+	name=$(awk -F'\t' '/name/ { gsub("\"", ""); print $4}' $i)
 
-	echo "appid: $appID"
-	echo -e "name: $name\n"
+	# Check if this application is a proton version, or some other steam related program.
+	# You can't really launch those by themselves
+	case $name in
+		Proton*) continue ;;
+		"Steam Linux Runtime"*) continue ;;
+		Steamworks*) continue ;;
+	esac
 
-	echo "$name;$appID" | sed 's/"//g' >> $dbPath
+	echo "$name"
+	echo "$name;$appID" >> $dbPath
 done
