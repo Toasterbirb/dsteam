@@ -23,7 +23,7 @@ static int limitlines 		= 1;  /* Prevent unnecessary lines, if there isn't enoug
 									 Might cause a memory error in some cases if disabled. */
 
 /* -h option; minimum height of a menu line */
-static unsigned int lineheight = 16;
+static unsigned int lineheight = 24;
 static unsigned int min_lineheight = 8;
 
 /*

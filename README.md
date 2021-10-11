@@ -5,6 +5,7 @@ Contains the following pathces:
 - fuzzymatch
 - line height
 - separator
+- xyw
 
 Also dmenu has been modified to not take stdin input but rather read the db file located at `$HOME/.config/dsteam/db`. The database contents are generated with the included script `dsteam_update`.
 
