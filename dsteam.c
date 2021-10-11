@@ -748,7 +748,7 @@ setup(void)
 	XIM xim;
 	Window w, dw, *dws;
 	XWindowAttributes wa;
-	XClassHint ch = {"dmenu", "dmenu"};
+	XClassHint ch = {"dsteam", "dsteam"};
 #ifdef XINERAMA
 	XineramaScreenInfo *info;
 	Window pw;
@@ -843,7 +843,7 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfinv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+	fputs("usage: dsteam [-bfinv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
       "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n"
       "             [-d separator] [-D separator]\n", stderr);
 	exit(1);
