@@ -1,5 +1,5 @@
-# dmenu version
-VERSION = 5.0
+# dsteam version
+VERSION = 0.1
 
 # paths
 PREFIX = /usr/local
