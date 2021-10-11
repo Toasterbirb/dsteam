@@ -40,6 +40,7 @@ struct item {
 static char text[BUFSIZ] = "";
 static char *embed;
 static char separator;
+static int itemcount = 0;
 static int separator_greedy;
 static int separator_reverse;
 static int bh, mw, mh;
@@ -624,6 +625,7 @@ readdb(void)
 	char buf[sizeof text], *p;
 	size_t i, imax = 0, size = 0;
 	unsigned int tmpmax = 0;
+	itemcount = 0;
 
 	char* homepath = malloc(sizeof (char) * 128);
 	homepath = getenv("HOME");
@@ -643,8 +645,10 @@ readdb(void)
 			if (!(items = realloc(items, (size += BUFSIZ))))
 				die("cannot realloc %u bytes:", size);
 
-		if ((p = strchr(buf, '\n')))
+		if ((p = strchr(buf, '\n'))) {
+			itemcount++;
 			*p = '\0';
+		}
 
 		if (!(items[i].text = strdup(buf)))
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
@@ -932,6 +936,10 @@ main(int argc, char *argv[])
 		readdb();
 		grabkeyboard();
 	}
+
+	if (limitlines == 1 && lines > itemcount)
+		lines = itemcount;
+
 	setup();
 	run();
 
