@@ -1,0 +1,20 @@
+#!/bin/sh
+steamPath="$HOME/.local/share/Steam/steamapps"
+manifestFiles=$(ls $steamPath/*.acf)
+dbPath="$HOME/.config/dsteam/db"
+
+mkdir -p $HOME/.config/dsteam
+[ -f $dbPath ] && rm $dbPath
+
+echo "Scanning app manifests..."
+for i in $manifestFiles
+do
+	echo $i
+	appID=$(awk '/appid/ {print $2}' $i)
+	name=$(awk -F'\t' '/name/ {print $4}' $i)
+
+	echo "appid: $appID"
+	echo -e "name: $name\n"
+
+	echo "$name;$appID" | sed 's/"//g' >> $dbPath
+done
