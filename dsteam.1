@@ -6,6 +6,8 @@ dsteam \- dynamic menu
 .RB [ \-bfiv ]
 .RB [ \-l
 .IR lines ]
+.RB [ \-h
+.IR height ]
 .RB [ \-m
 .IR monitor ]
 .RB [ \-p
@@ -53,6 +55,9 @@ dsteam matches menu items case insensitively.
 .TP
 .BI \-l " lines"
 dsteam lists items vertically, with the given number of lines.
+.TP
+.BI \-h " height"
+dsteam uses a menu line of at least 'height' pixels tall, but no less than 8.
 .TP
 .BI \-m " monitor"
 dsteam is displayed on the monitor number supplied. Monitor numbers are starting
