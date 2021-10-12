@@ -27,7 +27,7 @@
 #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
-enum { SchemeNorm, SchemeSel, SchemeOut, Border, SchemeLast }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeSelBelow, SchemeOut, Border, SchemeLast }; /* color schemes */
 
 struct item {
 	char *text;
@@ -133,7 +133,7 @@ drawitem(struct item *item, int x, int y, int w)
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
-	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
+	return drw_text(drw, x, y, w, bh - (bh / 6), lrpad / 2, item->text, 0);
 }
 
 static void
@@ -155,6 +155,7 @@ drawmenu(void)
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
 
+	/* draw cursor */
 	curpos = TEXTW(text) - TEXTW(&text[cursor]);
 	if ((curpos += lrpad / 2 - 1) < w) {
 		drw_setscheme(drw, scheme[SchemeNorm]);
@@ -164,7 +165,16 @@ drawmenu(void)
 	if (lines > 0) {
 		/* draw vertical list */
 		for (item = curr; item != next; item = item->right)
+		{
 			drawitem(item, x, y += bh, mw - x);
+
+			/* Draw a small decorative underlining below the selected object to make it look more 3D */
+			if (item == sel)
+			{
+				drw_setscheme(drw, scheme[SchemeSelBelow]);
+				drw_rect(drw, x, y + bh - (bh / 6), w, bh / 6, 1, 0);
+			}
+		}
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
@@ -174,8 +184,19 @@ drawmenu(void)
 			drw_text(drw, x, 0, w, bh, lrpad / 2, "<", 0);
 		}
 		x += w;
+		int blockwidth;
 		for (item = curr; item != next; item = item->right)
-			x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
+		{
+			blockwidth = MIN(TEXTW(item->text), mw - x - TEXTW(">"));
+			x = drawitem(item, x, 0, blockwidth);
+
+			/* Draw a small decorative underlining below the selected object to make it look more 3D */
+			if (item == sel)
+			{
+				drw_setscheme(drw, scheme[SchemeSelBelow]);
+				drw_rect(drw, x - blockwidth, y + bh - (bh / 6), blockwidth, bh / 6, 1, 0);
+			}
+		}
 		if (next) {
 			w = TEXTW(">");
 			drw_setscheme(drw, scheme[SchemeNorm]);
@@ -812,17 +833,30 @@ setup(void)
 		y = topbar ? dmy : wa.height - mh - dmy;
 		mw = (dmw>0 ? dmw : wa.width);
 	}
+	/* account for margins */
+	mw = mw - (border_width * 2) - (marginx * 2);
+	if (!topbar)
+		marginy *= -1;
+
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 	inputw = MIN(inputw, mw/3);
 	match();
+
 
 	/* create menu window */
 	swa.override_redirect = True;
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
-	win = XCreateWindow(dpy, parentwin, x + marginx, y + marginy, mw - (border_width * 2) - (marginx * 2), mh, border_width,
-	                    CopyFromParent, CopyFromParent, CopyFromParent,
-	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+
+	if (topbar)
+		win = XCreateWindow(dpy, parentwin, x + marginx, y + marginy, mw, mh, border_width,
+							CopyFromParent, CopyFromParent, CopyFromParent,
+							CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+	else
+		win = XCreateWindow(dpy, parentwin, x + marginx, y + marginy - (border_width * 2), mw, mh, border_width,
+							CopyFromParent, CopyFromParent, CopyFromParent,
+							CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+
 	XSetWindowBorder(dpy, win, scheme[Border][ColBg].pixel);
 	XSetClassHint(dpy, win, &ch);
 
