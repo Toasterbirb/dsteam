@@ -7,8 +7,8 @@ static int caseinsensitive 	= 1;
 static char separator 		= ';';
 
 /* Window margin */
-static int marginx 		= 800; 						/* Add a margin to the sides of dsteam. Disabled if 0 */
-static int marginy 		= -200; 					/* Add margin to the top of dsteam. Negative values for bottom */
+static unsigned int marginx 		= 800; 						/* Add a margin to the sides of dsteam. Disabled if 0 */
+static unsigned int marginy 		= 200; 						/* Add margin to the top/bottom of dsteam */
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
@@ -17,10 +17,11 @@ static const char *fonts[] = {
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     				fg         bg       */
-	[SchemeNorm] 	= { "#D4D4D4", "#222222" },
-	[SchemeSel] 	= { "#000000", "#81C2FF" },
-	[SchemeOut] 	= { "#000000", "#00ffff" },
-	[Border] 		= { "#ffffff", "#90A6BC" },
+	[SchemeNorm] 		= { "#D4D4D4", "#222222" },
+	[SchemeSel] 		= { "#000000", "#81C2FF" },
+	[SchemeSelBelow] 	= { "#69AFF1", "#69AFF1" },
+	[SchemeOut] 		= { "#000000", "#00ffff" },
+	[Border] 			= { "#90A6BC", "#90A6BC" },
 };
 /* -l option; if nonzero, dsteam uses vertical list with given number of lines */
 static unsigned int lines 	= 30;
