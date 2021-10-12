@@ -6,6 +6,7 @@ Contains the following pathces:
 - line height
 - separator
 - xyw
+- border
 
 Also dmenu has been modified to not take stdin input but rather read the db file located at `$HOME/.config/dsteam/db`. The database contents are generated with the included script `dsteam_update`.
 
