@@ -1,5 +1,7 @@
 # dsteam
-dmenu launcher for Steam games
+### dmenu launcher for Steam games
+
+![Preview image](./preview.png "Prview image")
 
 Contains the following pathces:
 - fuzzymatch
