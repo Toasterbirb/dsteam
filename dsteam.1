@@ -16,6 +16,10 @@ dsteam \- dynamic menu
 .IR yoffset ]
 .RB [ \-z
 .IR width ]
+.RB [ \-mx
+.IR xmargin ]
+.RB [ \-my
+.IR ymargin ]
 .RB [ \-p
 .IR prompt ]
 .RB [ \-fn
@@ -28,6 +32,12 @@ dsteam \- dynamic menu
 .IR color ]
 .RB [ \-sf
 .IR color ]
+.RB [ \-sc
+.IR color ]
+.RB [ \-bb
+.IR color ]
+.RB [ \-bw
+.IR width ]
 .RB [ \-w
 .IR windowid ]
 .RB [ \-d
@@ -91,6 +101,14 @@ is present, the measurement will use the given monitor.
 .BI \-z " width"
 sets the width of the dsteam window.
 .TP
+.BI \-mx " xmargin"
+sets the x margin of the dsteam window. Different from window width in a sense that
+margin centers the window horizontally without the need of specific window location.
+.TP
+.BI \-my " xmargin"
+sets the y margin of the dsteam window. Different from window width in a sense that
+margin centers the window vertically without the need of specific window location.
+.TP
 .BI \-p " prompt"
 defines the prompt to be displayed to the left of the input field.
 .TP
@@ -111,6 +129,15 @@ defines the selected background color.
 .TP
 .BI \-sf " color"
 defines the selected foreground color.
+.TP
+.BI \-sc " color"
+defines the selected shadow color.
+.TP
+.BI \-bb " color"
+defines the selected border background color.
+.TP
+.BI \-bw " width"
+defines the width of the borders around dsteam window.
 .TP
 .B \-v
 prints version information to stdout, then exits.
