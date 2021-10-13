@@ -923,6 +923,10 @@ main(int argc, char *argv[])
 			dmy = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-z"))   /* make dmenu this wide */
 			dmw = atoi(argv[++i]);
+		else if (!strcmp(argv[i], "-mx"))   /* horizontal margin */
+			marginx = atoi(argv[++i]);
+		else if (!strcmp(argv[i], "-my"))   /* vertical margin */
+			marginy = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-h")) { /* minimum height of one menu line */
 			lineheight = atoi(argv[++i]);
 			lineheight = MAX(lineheight, min_lineheight);
@@ -941,6 +945,12 @@ main(int argc, char *argv[])
 			colors[SchemeSel][ColBg] = argv[++i];
 		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
 			colors[SchemeSel][ColFg] = argv[++i];
+		else if (!strcmp(argv[i], "-sc"))  /* selected shadow color */
+			colors[SchemeSelBelow][ColFg] = argv[++i];
+		else if (!strcmp(argv[i], "-bb"))  /* selected border background color */
+			colors[Border][ColBg] = argv[++i];
+		else if (!strcmp(argv[i], "-bw"))  /* border width */
+			border_width = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
 			embed = argv[++i];
 		else if (!strcmp(argv[i], "-d") || !strcmp(argv[i], "-D")) { /* field separator */
