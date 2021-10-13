@@ -1,7 +1,14 @@
 #!/bin/sh
 steamPath="$HOME/.local/share/Steam/steamapps"
-manifestFiles=$(ls $steamPath/*.acf)
+libraryfolders="$HOME/.steam/steam/config/libraryfolders.vdf"
+libraryPaths=$(awk -F'\t' '/path/ { gsub("\"", ""); print $5 }' < $libraryfolders)
+#manifestFiles=$( | xargs -i ls "{}/steamapps/*")
 dbPath="$HOME/.config/dsteam/db"
+
+for i in $libraryPaths
+do
+	manifestFiles="$manifestFiles $(ls $i/steamapps/*.acf)"
+done
 
 mkdir -p $HOME/.config/dsteam
 [ -f $dbPath ] && rm $dbPath
