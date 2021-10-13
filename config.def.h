@@ -7,7 +7,7 @@ static int caseinsensitive 	= 1;
 static char separator 		= ';';
 
 /* Window margin */
-static unsigned int marginx 		= 800; 						/* Add a margin to the sides of dsteam. Disabled if 0 */
+static unsigned int marginx 		= 600; 						/* Add a margin to the sides of dsteam. Disabled if 0 */
 static unsigned int marginy 		= 200; 						/* Add margin to the top/bottom of dsteam */
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
