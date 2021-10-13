@@ -24,7 +24,7 @@ static const char *colors[SchemeLast][2] = {
 	[Border] 			= { "#90A6BC", "#90A6BC" },
 };
 /* -l option; if nonzero, dsteam uses vertical list with given number of lines */
-static unsigned int lines 	= 30;
+static unsigned int lines 	= 7;
 static int limitlines 		= 1;  /* Prevent unnecessary lines, if there isn't enough items to fill those lines.
 									 Might cause a memory error in some cases if disabled. */
 
