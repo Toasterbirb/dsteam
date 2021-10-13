@@ -2,7 +2,6 @@
 steamPath="$HOME/.local/share/Steam/steamapps"
 libraryfolders="$HOME/.steam/steam/config/libraryfolders.vdf"
 libraryPaths=$(awk -F'\t' '/path/ { gsub("\"", ""); print $5 }' < $libraryfolders)
-#manifestFiles=$( | xargs -i ls "{}/steamapps/*")
 dbPath="$HOME/.config/dsteam/db"
 
 for i in $libraryPaths
@@ -16,8 +15,8 @@ mkdir -p $HOME/.config/dsteam
 echo "Scanning app manifests..."
 for i in $manifestFiles
 do
-	appID=$(awk '/appid/ { gsub("\"", ""); print $2}' $i)
-	name=$(awk -F'\t' '/name/ { gsub("\"", ""); print $4}' $i)
+	appID=$(awk '/"appid"/ { gsub("\"", ""); print $2}' $i)
+	name=$(awk -F'\t' '/"name"/ { gsub("\"", ""); print $4}' $i)
 
 	# Check if this application is a proton version, or some other steam related program.
 	# You can't really launch those by themselves
@@ -27,6 +26,6 @@ do
 		Steamworks*) continue ;;
 	esac
 
-	echo "$name"
+	echo "$name - $appID"
 	echo "$name;$appID" >> $dbPath
 done
