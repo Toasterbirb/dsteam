@@ -6,7 +6,7 @@ dbPath="$HOME/.config/dsteam/db"
 
 for i in $libraryPaths
 do
-	manifestFiles="$manifestFiles $(ls $i/steamapps/*.acf)"
+	manifestFiles="$manifestFiles $(ls $i/steamapps/*.acf 2>/dev/null)"
 done
 
 mkdir -p $HOME/.config/dsteam
@@ -25,6 +25,12 @@ do
 		"Steam Linux Runtime"*) continue ;;
 		Steamworks*) continue ;;
 	esac
+
+	# Empty name
+	[ -z "$name" ] && continue
+
+	# Empty ID
+	[ -z "$appID" ] && continue
 
 	echo "$name - $appID"
 	echo "$name;$appID" >> $dbPath
